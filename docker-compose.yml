@@ -18,11 +18,11 @@ services:
           - admin.skoruba.local
           - admin-api.skoruba.local
     restart: always
-  skoruba.duende.identityserver.admin:
+  Ntk.IdentityServer.admin:
     image: '${DOCKER_REGISTRY-}skoruba-duende-identityserver-admin'
     build:
       context: .
-      dockerfile: src/Skoruba.Duende.IdentityServer.Admin/Dockerfile
+      dockerfile: src/Ntk.IdentityServer.Admin/Dockerfile
     container_name: skoruba-duende-identityserver-admin
     environment:
       - VIRTUAL_HOST=admin.skoruba.local
@@ -45,10 +45,10 @@ services:
       - 'Serilog__WriteTo__1__Args__connectionString=Server=db;Database=IdentityServerAdmin;User Id=sa;Password=${DB_PASSWORD:-Password_123};MultipleActiveResultSets=true'
       - DockerConfiguration__UpdateCaCertificate=true
       - ASPNETCORE_ENVIRONMENT=Development
-    command: dotnet Skoruba.Duende.IdentityServer.Admin.dll /seed
+    command: dotnet Ntk.IdentityServer.Admin.dll /seed
     depends_on:
       - db
-      - skoruba.duende.identityserver.sts.identity
+      - Ntk.IdentityServer.sts.identity
     volumes:
       - './shared/serilog.json:/app/serilog.json'
       - './shared/identitydata.json:/app/identitydata.json'
@@ -56,11 +56,11 @@ services:
       - './shared/nginx/certs/cacerts.crt:/usr/local/share/ca-certificates/cacerts.crt'
     networks:
       identityserverui: null
-  skoruba.duende.identityserver.admin.api:
+  Ntk.IdentityServer.admin.api:
     image: '${DOCKER_REGISTRY-}skoruba-duende-identityserver-admin-api'
     build:
       context: .
-      dockerfile: src/Skoruba.Duende.IdentityServer.Admin.Api/Dockerfile
+      dockerfile: src/Ntk.IdentityServer.Admin.Api/Dockerfile
     container_name: skoruba-duende-identityserver-admin-api
     environment:
       - VIRTUAL_HOST=admin-api.skoruba.local
@@ -80,11 +80,11 @@ services:
       - './shared/nginx/certs/cacerts.crt:/usr/local/share/ca-certificates/cacerts.crt'
     networks:
       identityserverui: null
-  skoruba.duende.identityserver.sts.identity:
+  Ntk.IdentityServer.sts.identity:
     image: '${DOCKER_REGISTRY-}skoruba-duende-identityserver-sts-identity'
     build:
       context: .
-      dockerfile: src/Skoruba.Duende.IdentityServer.STS.Identity/Dockerfile
+      dockerfile: src/Ntk.IdentityServer.STS.Identity/Dockerfile
     container_name: skoruba-duende-identityserver-sts-identity
     environment:
       - VIRTUAL_HOST=sts.skoruba.local
